@@ -39,7 +39,7 @@ namespace magic.lambda.ad_auth
         public void Signal(ISignaler signaler, Node input)
         {
             // Retrieving LDAP configuration.
-            var path = _configuration["magic:ldap:path"];
+            var path = _configuration["magic:auth:ldap"];
 
             // Retrieving username from arguments.
             var username = input.Children.FirstOrDefault(x => x.Name == "username")?.GetEx<string>() ??

@@ -52,11 +52,10 @@ namespace magic.lambda.ad_auth
             using (var user = new DirectoryEntry(path, username, password))
             {
                 if (user.NativeObject == null)
-                    throw new ArgumentException($"Access denied");
+                    input.Value = false;
+                else
+                    input.Value = true;
             }
-
-            // To keep API similar to existing authenticate slots, we make sure we set node's value/result/return-value to true.
-            input.Value = true;
         }
     }
 }

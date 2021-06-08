@@ -2,7 +2,10 @@
 # Magic Lambda AD auth
 
 This project gives your Magic installation the capability of authenticating over LDAP and Active Directory.
-Below is an example of how to perform AD authentication.
+The basic idea of the project is that it allows you to instead of verifying your password using the default
+Magic database, it allows you to verify your password by providing your username and password to a slot
+that verified it according to your AD username/password instead. Below is an example of how to perform
+AD authentication.
 
 ```
 ad-auth.authenticate

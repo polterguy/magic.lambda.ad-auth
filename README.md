@@ -10,7 +10,6 @@ ad-auth.authenticate
    password:SomePa$$wordHere
 ```
 
-
 ## Project website
 
 The source code for this repository can be found at [github.com/polterguy/magic.lambda.ad-auth](https://github.com/polterguy/magic.lambda.ad-auth), and you can provide feedback, provide bug reports, etc at the same place.

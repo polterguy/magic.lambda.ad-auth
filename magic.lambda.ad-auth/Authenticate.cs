@@ -22,6 +22,10 @@ namespace magic.lambda.ad_auth
     {
         readonly IConfiguration _configuration;
 
+        /// <summary>
+        /// Creates an instance of your type
+        /// </summary>
+        /// <param name="configuration">Dependency injected configuration object</param>
         public Authenticate(IConfiguration configuration)
         {
             _configuration = configuration;

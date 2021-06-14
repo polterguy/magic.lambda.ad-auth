@@ -22,7 +22,7 @@ namespace magic.lambda.ad_auth
         /// <summary>
         /// Creates an instance of your type
         /// </summary>
-        /// <param name="configuration">Dependency injected configuration object</param>
+        /// <param name="contextAccessor">Dependency injected HTTP context accessor</param>
         public AutoAuthenticate(IHttpContextAccessor contextAccessor)
         {
             _contextAccessor = contextAccessor;

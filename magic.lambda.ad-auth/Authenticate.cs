@@ -6,7 +6,6 @@
 using System;
 using System.Linq;
 using System.DirectoryServices;
-using System.DirectoryServices.AccountManagement;
 using Microsoft.Extensions.Configuration;
 using magic.node;
 using magic.node.extensions;
@@ -15,9 +14,9 @@ using magic.signals.contracts;
 namespace magic.lambda.ad_auth
 {
     /// <summary>
-    /// [ad-auth.authenticate] slot that authenticates a user over Active Directory.
+    /// [auth.ad.authenticate] slot that authenticates a user over Active Directory.
     /// </summary>
-    [Slot(Name = "ad-auth.authenticate")]
+    [Slot(Name = "auth.ad.authenticate")]
     public class Authenticate : ISlot
     {
         readonly IConfiguration _configuration;
@@ -43,11 +42,11 @@ namespace magic.lambda.ad_auth
 
             // Retrieving username from arguments.
             var username = input.Children.FirstOrDefault(x => x.Name == "username")?.GetEx<string>() ??
-                throw new ArgumentException("No [username] provided to [ad-auth.authentication]");
+                throw new ArgumentException("No [username] provided to [auth.ad.authentication]");
 
             // Retrieving password from arguments.
             var password = input.Children.FirstOrDefault(x => x.Name == "password")?.GetEx<string>() ??
-                throw new ArgumentException("No [password] provided to [ad-auth.authentication]");
+                throw new ArgumentException("No [password] provided to [auth.ad.authentication]");
 
             using (var user = new DirectoryEntry(path, username, password))
             {

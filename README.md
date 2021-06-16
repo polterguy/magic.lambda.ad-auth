@@ -3,13 +3,24 @@
 
 This project gives your Magic installation the capability of authenticating users through your Windows Domain.
 The project contains _two_ methods for authentication; One method where you supply your Windows username and
-password, and we check these towards `DirectoryEntry` for your LDAP Domain.
+password, and Magic checks these towards the `DirectoryEntry` object for your LDAP Domain.
 
 ## Common configuration
 
 Both of these methods implies that you configure Magic such that it knows your LDAP URL.
 This is done by changing the `magic.auth.ldap` value from your _"appsettings.json"_ file,
 such that it points to your LDAP URL. Typically, your network administrator knows this value.
+Below is an example of this configuration. Make sure you change the `LDAP://foo.acme.somewhere`
+to your actual LDAP URL.
+
+```json
+{
+  "magic": {
+    "auth": {
+      "ldap": "LDAP://foo.acme.somewhere",
+```
+
+... _keep_ the rest of the file as is.
 
 ## Windows username/password authentication
 
@@ -33,20 +44,19 @@ Windows SSO (Single Sign On) to allow for users to authenticate towards your Mag
 
 ## Zero username/password Windows authentication
 
-The second method assumes your client is already logged on to your domain with your Windows
+The second method assumes your client is already logged on to your domain with his Windows
 credentials, in addition to that you're accessing the application through your LAN, and that
-the web server is configured to use Windows authentication. This method allows you to simply
-invoke the **[auth.ad.get-username]** slot to retrieve your current username,
-which you then later can use to authenticate the user in the Hyperlambda middleware. Below
-is an example of usage.
+the web server is configured to use Windows authentication. This method allows you to invoke
+the **[auth.ad.get-username]** slot to retrieve the user's username, which you then later
+can use to authenticate the user in the Hyperlambda middleware. Below is an example of usage.
 
 ```
 auth.ad.get-username
 ```
 
-The above slot will return your Windows username if successful. If not successful it will
-return null. Notice, this method assumes you've configured your Magic installation to use
-Windows authentication in your _"launchSettings.json"_ file, such as the following
+The above slot will return the Windows username of the user if successful. If not successful
+it will return null. Notice, this method assumes you've configured your Magic installation to
+use Windows authentication in your _"launchSettings.json"_ file, such as the following
 illustrates.
 
 ```json
@@ -56,13 +66,13 @@ illustrates.
     "anonymousAuthentication": false,
 ```
 
-... _keep_ the rest of the file as is. [Read more here](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/windowsauth?view=aspnetcore-5.0&tabs=visual-studio)
+... _keep_ the rest of the file as is. [Read more about Windows authentication](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/windowsauth?view=aspnetcore-5.0&tabs=visual-studio)
 to understand the internals of how this works.
 
 In addition to the above changes to your _"launchSettings.json"_ file, you'll also have to
 change the `magic.auth.auto-auth` setting in your _"appsettings.json"_ file, and set its value
-to boolean true. Below is an example for how to turn on _both_ of these mechanisms assuming
-you change the _"LDAP://foo.acme.somewhere"_ value to the URL of your _actual_ LDAP server.
+to _"auth.ad.get-username"_. Below is an example for how to turn on _both_ of these mechanisms
+assuming you change the _"LDAP://foo.acme.somewhere"_ value to the URL of your _actual_ LDAP server.
 
 ```json
 {
@@ -70,23 +80,26 @@ you change the _"LDAP://foo.acme.somewhere"_ value to the URL of your _actual_ L
     "auth": {
       "authentication": "auth.ad.authenticate",
       "ldap": "LDAP://foo.acme.somewhere",
-      "auto-auth": true,
+      "auto-auth": "auth.ad.get-username",
 ```
 
 ... _keep_ the rest of the file as is.
 
 ## Combination authentication schemes
 
-Both of the above authentication schemes can actually be _combined_, such that the authenticate
+Both of the above authentication mechanisms can actually be _combined_, such that the authenticate
 endpoint in Magic no longer requires the **[username]**/**[password]** arguments as mandatory,
 and if not given, it will try to automatically authenticate the user using the **[auth.ad.get-username]**
 slot.
 
 If a **[username]**/**[password]** argument _is_ provided though, it will try to authenticate the
 user using the **[auth.ad.authenticate]** slot. This allows the end user to explicitly login to
-Magic providing a username/password combination, to impersonate himself, over a machine where he
-is not logged into his Windows account, allowing the user to access Magic over the web - While
-automatically logging in if the user is on his intranet.
+Magic providing a username/password combination, which is useful for instance over a machine where
+the user is not logged into his Windows account, allowing the user to access Magic over the web - While
+automatically logging in the user if the user is on his intranet. The flow for this is simply
+to invoke the authenticate endpoint _without_ a username/password combination first, and if
+this fails then ask the user for his username/password combination, and invoke the endpoint
+again, this time with the user's username and password as arguments to the invocation.
 
 ## Getting started with Windows authentication
 

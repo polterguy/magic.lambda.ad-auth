@@ -35,13 +35,29 @@ namespace magic.lambda.ad_auth
         /// <param name="input">Arguments to slot.</param>
         public void Signal(ISignaler signaler, Node input)
         {
-            // Retrieving identity through Windows Authentication.
-            var username = _contextAccessor.HttpContext.User.Identity.Name;
-            if (username == null)
-                throw new SecurityException("No such user"); // Oops, not authenticated on AD/Windows.
-
-            // Success.
-            input.Value = username;
+            /*
+             * Notice, if invocation is given an explicit [username]/[password]
+             * combination, we use these to authenticate user to allow for users
+             * to login with their own Windows credentials on machines were they're
+             * not logged into their Windows accounts.
+             */
+            var username = input.Children.FirstOrDefault(x => x.Name == "username").GetEx<string>();
+            var password = input.Children.FirstOrDefault(x => x.Name == "password").GetEx<string>();
+            if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+            {
+                using (var user = new DirectoryEntry(path, username, password))
+                {
+                    if (user.NativeObject == null)
+                        input.Value = false;
+                    else
+                        input.Value = true;
+                }
+            }
+            else
+            {
+                // Retrieving identity through Windows Authentication.
+                input.Value = _contextAccessor.HttpContext.User.Identity.Name;
+            }
         }
     }
 }

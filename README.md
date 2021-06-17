@@ -3,7 +3,8 @@
 
 This project gives your Magic installation the capability of authenticating users through your Windows Domain.
 The project contains _two_ methods for authentication; One method where you supply your Windows username and
-password, and Magic checks these towards the `DirectoryEntry` object for your LDAP Domain.
+password, and Magic checks these towards the `DirectoryEntry` object for your LDAP Domain. The other method
+is _"automatic authentication"_ assuming you're already logged on to the domain with your client machine.
 
 ## Common configuration
 

@@ -5,8 +5,8 @@
 using System;
 using System.Linq;
 using System.DirectoryServices;
-using Microsoft.Extensions.Configuration;
 using magic.node;
+using magic.node.contracts;
 using magic.node.extensions;
 using magic.signals.contracts;
 
@@ -18,13 +18,13 @@ namespace magic.lambda.ad_auth
     [Slot(Name = "auth.ad.authenticate")]
     public class Authenticate : ISlot
     {
-        readonly IConfiguration _configuration;
+        readonly IMagicConfiguration _configuration;
 
         /// <summary>
         /// Creates an instance of your type
         /// </summary>
         /// <param name="configuration">Dependency injected configuration object</param>
-        public Authenticate(IConfiguration configuration)
+        public Authenticate(IMagicConfiguration configuration)
         {
             _configuration = configuration;
         }

@@ -49,6 +49,7 @@
 
   <ItemGroup>
     <PackageReference Include="magic.node.extensions" Version="11.0.4" />
+    <PackageReference Include="magic.lambda.auth" Version="11.0.4" />
     <PackageReference Include="magic.signals.contracts" Version="11.0.4" />
   </ItemGroup>
 </Project>

@@ -9,6 +9,7 @@ using magic.node;
 using magic.node.contracts;
 using magic.node.extensions;
 using magic.signals.contracts;
+using magic.lambda.auth.contracts;
 
 namespace magic.lambda.ad_auth
 {
@@ -18,15 +19,15 @@ namespace magic.lambda.ad_auth
     [Slot(Name = "auth.ad.authenticate")]
     public class Authenticate : ISlot
     {
-        readonly IMagicConfiguration _configuration;
+        readonly IAuthSettings _settings;
 
         /// <summary>
         /// Creates an instance of your type
         /// </summary>
         /// <param name="configuration">Dependency injected configuration object</param>
-        public Authenticate(IMagicConfiguration configuration)
+        public Authenticate(IAuthSettings settings)
         {
-            _configuration = configuration;
+            _settings = settings;
         }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace magic.lambda.ad_auth
         public void Signal(ISignaler signaler, Node input)
         {
             // Retrieving LDAP configuration.
-            var path = _configuration["magic:auth:ldap"];
+            var path = _settings.LDAP;
 
             // Retrieving username from arguments.
             var username = input.Children.FirstOrDefault(x => x.Name == "username")?.GetEx<string>() ??

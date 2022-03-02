@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>magic.lambda.ad-auth</PackageId>
     <Authors>Thomas Hansen</Authors>
@@ -10,7 +10,7 @@
     <Description>Active Directory authentication helper project for Magic, giving you support for authenticating over AD from Hyperlambda. To use package go to https://polterguy.github.io</Description>
     <PackageProjectUrl>https://github.com/polterguy/magic.lambda.ad-auth</PackageProjectUrl>
     <PackOnBuild>true</PackOnBuild>
-    <PackageVersion>11.0.4</PackageVersion>
+    <PackageVersion>11.0.5</PackageVersion>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/polterguy/magic.lambda.ad-auth.git</RepositoryUrl>
@@ -48,8 +48,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="magic.node.extensions" Version="11.0.4" />
-    <PackageReference Include="magic.lambda.auth" Version="11.0.4" />
-    <PackageReference Include="magic.signals.contracts" Version="11.0.4" />
+    <PackageReference Include="magic.node.extensions" Version="11.0.5" />
+    <PackageReference Include="magic.lambda.auth" Version="11.0.5" />
+    <PackageReference Include="magic.signals.contracts" Version="11.0.5" />
   </ItemGroup>
 </Project>

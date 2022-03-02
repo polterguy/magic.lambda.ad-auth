@@ -24,7 +24,7 @@ namespace magic.lambda.ad_auth
         /// <summary>
         /// Creates an instance of your type
         /// </summary>
-        /// <param name="configuration">Dependency injected configuration object</param>
+        /// <param name="settings">Dependency injected settings object</param>
         public Authenticate(IAuthSettings settings)
         {
             _settings = settings;

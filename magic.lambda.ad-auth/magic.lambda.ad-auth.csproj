@@ -10,7 +10,7 @@
     <Description>Active Directory authentication helper project for Magic, giving you support for authenticating over AD from Hyperlambda. To use package go to https://polterguy.github.io</Description>
     <PackageProjectUrl>https://aista.com</PackageProjectUrl>
     <PackOnBuild>true</PackOnBuild>
-    <PackageVersion>13.3.0</PackageVersion>
+    <PackageVersion>13.3.4</PackageVersion>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/polterguy/magic.lambda.ad-auth</RepositoryUrl>
@@ -48,8 +48,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="magic.node.extensions" Version="13.3.0" />
-    <PackageReference Include="magic.lambda.auth" Version="13.3.0" />
-    <PackageReference Include="magic.signals.contracts" Version="13.3.0" />
+    <PackageReference Include="magic.node.extensions" Version="13.3.4" />
+    <PackageReference Include="magic.lambda.auth" Version="13.3.4" />
+    <PackageReference Include="magic.signals.contracts" Version="13.3.4" />
   </ItemGroup>
 </Project>
